@@ -4,8 +4,8 @@ use std::io::{BufReader, Write};
 
 #[derive(Serialize, Deserialize)]
 pub struct Todo {
-    content: String,
-    done: bool,
+    pub content: String,
+    pub done: bool,
 }
 
 const CURRENT_TODO: &str = "./current_todo.json";
@@ -20,9 +20,18 @@ pub fn get_current_todo() -> Vec<Todo> {
 
     let buffer = BufReader::new(file);
 
-    let todos: Vec<Todo> = serde_json::from_reader(buffer).expect("error descerializing file");
-
-    return todos;
+    match serde_json::from_reader::<BufReader<File>, Vec<Todo>>(buffer) {
+        Ok(todos) => {
+            return todos;
+        }
+        Err(error) => {
+            if error.is_eof() {
+                println!("{}", error.to_string());
+                return vec![];
+            }
+            panic!("{error}");
+        }
+    }
 }
 
 pub fn save_current_todo(todos: Vec<Todo>) {

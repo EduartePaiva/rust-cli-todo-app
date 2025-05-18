@@ -28,7 +28,7 @@ pub enum Commands {
     )]
     Edit {
         #[arg(required = true)]
-        index: u32,
+        index: usize,
         #[arg(required = true)]
         content: String,
     },
@@ -44,13 +44,13 @@ pub enum Commands {
     )]
     Done {
         #[arg(required = true)]
-        index: Vec<u32>,
+        index: Vec<usize>,
     },
 
     #[command(visible_alias = "r", about("- Removes a task\n  Example: todo rm 4"))]
     Rm {
         #[arg(required = true)]
-        index: u32,
+        index: usize,
     },
 
     #[command(about("- Delete all tasks"))]

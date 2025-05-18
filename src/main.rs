@@ -1,13 +1,15 @@
-use rust_cli_todo::{Cli, Commands, Parser};
+use rust_cli_todo::{Cli, Commands, Parser, todo};
 
 fn main() {
     let cli = Cli::parse();
 
     match cli.command {
         Commands::Add { tasks } => {
-            println!("{:?}", tasks);
+            todo::add(tasks);
         }
-        Commands::Rm { index } => println!("{index}"),
+        Commands::Rm { index } => {
+            todo::rm(index);
+        }
         Commands::Edit { index, content } => todo!(),
         Commands::List => todo!(),
         Commands::Done { index } => todo!(),
