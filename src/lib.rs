@@ -44,7 +44,7 @@ pub enum Commands {
     )]
     Done {
         #[arg(required = true)]
-        index: Vec<usize>,
+        indexs: Vec<usize>,
     },
 
     #[command(visible_alias = "r", about("- Removes a task\n  Example: todo rm 4"))]
