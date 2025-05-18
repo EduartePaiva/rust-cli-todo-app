@@ -1,4 +1,6 @@
-use crate::repository::{Todo, get_current_todo, save_current_todo};
+use crate::repository::{
+    Todo, get_backup_todo, get_current_todo, save_backup_todo, save_current_todo,
+};
 
 fn invalid_index(index: usize, length: usize) -> bool {
     if index == 0 || index - 1 >= length {
@@ -61,10 +63,12 @@ pub fn done(indexs: Vec<usize>) {
 }
 pub fn reset() {
     let todos = get_current_todo();
-    save_current_todo(todos);
+
+    save_backup_todo(todos);
+    save_current_todo(vec![]);
 }
 pub fn restore() {
-    let todos = get_current_todo();
+    let todos = get_backup_todo();
     save_current_todo(todos);
 }
 pub fn sort() {
